@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("form-newsletter");
-    const mensaje = document.getElementById("mensaje-exito");
 
     const toggleBtn = document.querySelector(".menu-toggle");
     const closeBtn = document.querySelector(".menu-close");
@@ -41,6 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // Validación del formulario
+    const form = document.getElementById("form-newsletter");
+    const modal = document.getElementById("registroModal");
+
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -55,11 +56,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Simulación de registro exitoso
         form.reset();
-        mensaje.classList.remove("oculto");
+        modal.classList.remove("oculto");
 
         setTimeout(() => {
-            mensaje.classList.add("oculto");
+            modal.classList.add("oculto");
         }, 5000);
+    });
+
+    // Mensaje de éxito para el formulario
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.classList.add("oculto");
+        }
     });
 
 
@@ -116,20 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-
-    // Mensaje de éxito para el formulario
-    const modal = document.getElementById("registroModal");
-    const btnCTA = document.getElementById("btn-cta");
-
-    btnCTA.addEventListener("click", () => {
-        modal.classList.remove("oculto");
-    });
-
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            modal.classList.add("oculto");
-        }
-    });
 
     // Inicialización de AOS (Animate On Scroll) para animaciones
     const h2Elements = document.querySelectorAll(".section h2");

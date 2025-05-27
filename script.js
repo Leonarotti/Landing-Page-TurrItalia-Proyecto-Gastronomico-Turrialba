@@ -54,13 +54,36 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Simulación de registro exitoso
-        form.reset();
-        modal.classList.remove("oculto");
+        // Enviar datos al backend
+        fetch('http://localhost:3000/contacto', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                nombre: nombre,
+                correo: correo
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta del servidor');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Mostrar modal de éxito
+                form.reset();
+                modal.classList.remove("oculto");
 
-        setTimeout(() => {
-            modal.classList.add("oculto");
-        }, 5000);
+                setTimeout(() => {
+                    modal.classList.add("oculto");
+                }, 5000);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Hubo un error al enviar el formulario. Por favor intenta nuevamente.");
+            });
     });
 
     // Mensaje de éxito para el formulario
